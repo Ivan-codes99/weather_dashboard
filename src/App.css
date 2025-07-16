@@ -133,6 +133,13 @@ a:hover {
 
 .dashboard-summary {
   color: #f3f3f3;
+  font-weight: 500;
+}
+
+.dashboard-summary,
+.dashboard-summary p {
+  color: #f3f3f3 !important;
+  font-weight: 500;
 }
 
 body, #root, .App {
@@ -145,9 +152,9 @@ body, #root, .App {
   color: #222;
 }
 
-.dashboard-controls label {
+.dashboard-controls label,
+.dashboard-controls span {
   color: #f3f3f3;
-  font-weight: 500;
 }
 
 .App {
