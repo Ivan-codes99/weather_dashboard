@@ -1,6 +1,7 @@
 import { useParams, Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import TOP_CITIES from './topCities';
+import MOCK_WEATHER_DATA from './mockWeatherData'; // ✅ Import mock data
 
 function DetailView() {
   const { city } = useParams();
@@ -9,26 +10,23 @@ function DetailView() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const fetchCityWeather = async () => {
+    try {
       setLoading(true);
-      setError(null);
-      try {
-        const apiKey = import.meta.env.VITE_WEATHERBIT_API_KEY;
-        // Try to find the country code for the city (for more accurate API call)
-        // We'll use a static list for now, but ideally this would be imported from a shared file
-        const cityObj = TOP_CITIES.find(c => c.name === city);
-        if (!cityObj) throw new Error('City not found');
-        const response = await fetch(`https://api.weatherbit.io/v2.0/current?city=${encodeURIComponent(cityObj.name)}&country=${cityObj.country}&key=${apiKey}`);
-        const json = await response.json();
-        if (!json.data || !json.data[0]) throw new Error('No weather data found');
-        setData(json.data[0]);
-      } catch (err) {
-        setError('Failed to fetch weather data.');
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchCityWeather();
+      const cityObj = TOP_CITIES.find(c => c.name === city);
+      if (!cityObj) throw new Error('City not found');
+
+      const matchedData = MOCK_WEATHER_DATA.find(
+        entry => entry.city_name === city && entry.country_code === cityObj.country
+      );
+
+      if (!matchedData) throw new Error('No mock weather data found for this city');
+
+      setData(matchedData);
+    } catch (err) {
+      setError('Failed to load mock weather data.');
+    } finally {
+      setLoading(false);
+    }
   }, [city]);
 
   if (loading) return <div>Loading...</div>;
@@ -47,13 +45,12 @@ function DetailView() {
       />
       <p><strong>Temperature:</strong> {data.temp}°C</p>
       <p><strong>Condition:</strong> {data.weather.description}</p>
-      <p><strong>Humidity:</strong> {data.rh}%</p>
+      <p><strong>Humidity:</strong> {data.humidity}%</p>
       <p><strong>Wind Speed:</strong> {data.wind_spd} m/s</p>
       <p><strong>Pressure:</strong> {data.pres} mb</p>
       <p><strong>Visibility:</strong> {data.vis} km</p>
-      {/* Add any other interesting fields from the API */}
     </div>
   );
 }
 
-export default DetailView; 
+export default DetailView;

@@ -1,0 +1,95 @@
+// Mock weather data for all top cities
+// Fields: city_name, country_code, temp, weather: { description, icon }, humidity, wind_spd, pres, vis
+
+const MOCK_WEATHER_DATA = [
+  // Africa
+  { city_name: "Lagos", country_code: "NG", temp: 29, weather: { description: "Clear sky", icon: "c01d" }, humidity: 80, wind_spd: 3.2, pres: 1012, vis: 10 },
+  { city_name: "Cairo", country_code: "EG", temp: 34, weather: { description: "Sunny", icon: "c01d" }, humidity: 25, wind_spd: 4.1, pres: 1008, vis: 10 },
+  { city_name: "Kinshasa", country_code: "CD", temp: 27, weather: { description: "Cloudy", icon: "c02d" }, humidity: 85, wind_spd: 2.8, pres: 1010, vis: 9 },
+  { city_name: "Luanda", country_code: "AO", temp: 26, weather: { description: "Partly cloudy", icon: "c02d" }, humidity: 78, wind_spd: 3.0, pres: 1011, vis: 10 },
+  { city_name: "Johannesburg", country_code: "ZA", temp: 22, weather: { description: "Rain", icon: "r01d" }, humidity: 70, wind_spd: 5.2, pres: 1005, vis: 8 },
+  { city_name: "Nairobi", country_code: "KE", temp: 24, weather: { description: "Showers", icon: "r02d" }, humidity: 75, wind_spd: 3.5, pres: 1013, vis: 10 },
+  { city_name: "Casablanca", country_code: "MA", temp: 21, weather: { description: "Clear sky", icon: "c01d" }, humidity: 60, wind_spd: 2.9, pres: 1016, vis: 10 },
+  { city_name: "Addis Ababa", country_code: "ET", temp: 18, weather: { description: "Fog", icon: "a05d" }, humidity: 90, wind_spd: 1.8, pres: 1020, vis: 4 },
+  { city_name: "Abidjan", country_code: "CI", temp: 28, weather: { description: "Thunderstorm", icon: "t04d" }, humidity: 88, wind_spd: 4.0, pres: 1009, vis: 7 },
+  { city_name: "Algiers", country_code: "DZ", temp: 25, weather: { description: "Sunny", icon: "c01d" }, humidity: 40, wind_spd: 3.1, pres: 1014, vis: 10 },
+
+  // Asia
+  { city_name: "Tokyo", country_code: "JP", temp: 30, weather: { description: "Clear sky", icon: "c01d" }, humidity: 65, wind_spd: 4.5, pres: 1010, vis: 10 },
+  { city_name: "Delhi", country_code: "IN", temp: 36, weather: { description: "Haze", icon: "a01d" }, humidity: 40, wind_spd: 2.7, pres: 1007, vis: 8 },
+  { city_name: "Shanghai", country_code: "CN", temp: 32, weather: { description: "Cloudy", icon: "c02d" }, humidity: 70, wind_spd: 3.9, pres: 1009, vis: 9 },
+  { city_name: "Mumbai", country_code: "IN", temp: 33, weather: { description: "Rain", icon: "r01d" }, humidity: 85, wind_spd: 5.0, pres: 1006, vis: 7 },
+  { city_name: "Dhaka", country_code: "BD", temp: 35, weather: { description: "Thunderstorm", icon: "t04d" }, humidity: 80, wind_spd: 4.2, pres: 1008, vis: 6 },
+  { city_name: "Jakarta", country_code: "ID", temp: 31, weather: { description: "Partly cloudy", icon: "c02d" }, humidity: 75, wind_spd: 3.3, pres: 1012, vis: 10 },
+  { city_name: "Seoul", country_code: "KR", temp: 28, weather: { description: "Clear sky", icon: "c01d" }, humidity: 60, wind_spd: 2.5, pres: 1015, vis: 10 },
+  { city_name: "Bangkok", country_code: "TH", temp: 34, weather: { description: "Showers", icon: "r02d" }, humidity: 78, wind_spd: 3.8, pres: 1009, vis: 9 },
+  { city_name: "Manila", country_code: "PH", temp: 32, weather: { description: "Rain", icon: "r01d" }, humidity: 82, wind_spd: 4.1, pres: 1007, vis: 8 },
+  { city_name: "Riyadh", country_code: "SA", temp: 41, weather: { description: "Sunny", icon: "c01d" }, humidity: 15, wind_spd: 2.2, pres: 1005, vis: 10 },
+  { city_name: "Singapore", country_code: "SG", temp: 31, weather: { description: "Partly cloudy", icon: "c02d" }, humidity: 77, wind_spd: 3.6, pres: 1010, vis: 10 },
+  { city_name: "Kuala Lumpur", country_code: "MY", temp: 30, weather: { description: "Thunderstorm", icon: "t04d" }, humidity: 85, wind_spd: 4.0, pres: 1008, vis: 7 },
+  { city_name: "Tehran", country_code: "IR", temp: 37, weather: { description: "Sunny", icon: "c01d" }, humidity: 20, wind_spd: 2.9, pres: 1006, vis: 10 },
+  { city_name: "Karachi", country_code: "PK", temp: 35, weather: { description: "Haze", icon: "a01d" }, humidity: 50, wind_spd: 3.1, pres: 1007, vis: 8 },
+  { city_name: "Beijing", country_code: "CN", temp: 29, weather: { description: "Cloudy", icon: "c02d" }, humidity: 60, wind_spd: 2.7, pres: 1012, vis: 10 },
+  { city_name: "Hong Kong", country_code: "HK", temp: 31, weather: { description: "Showers", icon: "r02d" }, humidity: 79, wind_spd: 3.4, pres: 1011, vis: 9 },
+
+  // Europe
+  { city_name: "Moscow", country_code: "RU", temp: 19, weather: { description: "Cloudy", icon: "c02d" }, humidity: 65, wind_spd: 3.0, pres: 1018, vis: 10 },
+  { city_name: "London", country_code: "GB", temp: 17, weather: { description: "Rain", icon: "r01d" }, humidity: 80, wind_spd: 4.2, pres: 1012, vis: 8 },
+  { city_name: "Paris", country_code: "FR", temp: 21, weather: { description: "Clear sky", icon: "c01d" }, humidity: 70, wind_spd: 3.5, pres: 1015, vis: 10 },
+  { city_name: "Istanbul", country_code: "TR", temp: 23, weather: { description: "Partly cloudy", icon: "c02d" }, humidity: 68, wind_spd: 3.7, pres: 1013, vis: 10 },
+  { city_name: "Madrid", country_code: "ES", temp: 28, weather: { description: "Sunny", icon: "c01d" }, humidity: 30, wind_spd: 2.8, pres: 1011, vis: 10 },
+  { city_name: "Berlin", country_code: "DE", temp: 20, weather: { description: "Rain", icon: "r01d" }, humidity: 75, wind_spd: 3.9, pres: 1014, vis: 9 },
+  { city_name: "Rome", country_code: "IT", temp: 25, weather: { description: "Clear sky", icon: "c01d" }, humidity: 60, wind_spd: 2.6, pres: 1016, vis: 10 },
+  { city_name: "Vienna", country_code: "AT", temp: 22, weather: { description: "Fog", icon: "a05d" }, humidity: 85, wind_spd: 2.2, pres: 1017, vis: 6 },
+  { city_name: "Warsaw", country_code: "PL", temp: 18, weather: { description: "Cloudy", icon: "c02d" }, humidity: 70, wind_spd: 3.3, pres: 1018, vis: 10 },
+  { city_name: "Budapest", country_code: "HU", temp: 20, weather: { description: "Rain", icon: "r01d" }, humidity: 78, wind_spd: 3.0, pres: 1015, vis: 8 },
+  { city_name: "Athens", country_code: "GR", temp: 27, weather: { description: "Sunny", icon: "c01d" }, humidity: 40, wind_spd: 2.5, pres: 1012, vis: 10 },
+  { city_name: "Prague", country_code: "CZ", temp: 19, weather: { description: "Cloudy", icon: "c02d" }, humidity: 65, wind_spd: 2.8, pres: 1016, vis: 10 },
+  { city_name: "Bucharest", country_code: "RO", temp: 24, weather: { description: "Partly cloudy", icon: "c02d" }, humidity: 60, wind_spd: 3.1, pres: 1013, vis: 10 },
+  { city_name: "Hamburg", country_code: "DE", temp: 16, weather: { description: "Rain", icon: "r01d" }, humidity: 85, wind_spd: 4.0, pres: 1014, vis: 7 },
+
+  // North America
+  { city_name: "New York", country_code: "US", temp: 24, weather: { description: "Clear sky", icon: "c01d" }, humidity: 65, wind_spd: 3.8, pres: 1012, vis: 10 },
+  { city_name: "Los Angeles", country_code: "US", temp: 27, weather: { description: "Sunny", icon: "c01d" }, humidity: 55, wind_spd: 2.9, pres: 1011, vis: 10 },
+  { city_name: "Mexico City", country_code: "MX", temp: 22, weather: { description: "Rain", icon: "r01d" }, humidity: 75, wind_spd: 4.1, pres: 1013, vis: 8 },
+  { city_name: "Toronto", country_code: "CA", temp: 19, weather: { description: "Cloudy", icon: "c02d" }, humidity: 70, wind_spd: 3.2, pres: 1015, vis: 10 },
+  { city_name: "Chicago", country_code: "US", temp: 21, weather: { description: "Showers", icon: "r02d" }, humidity: 80, wind_spd: 4.0, pres: 1012, vis: 9 },
+  { city_name: "Houston", country_code: "US", temp: 29, weather: { description: "Thunderstorm", icon: "t04d" }, humidity: 85, wind_spd: 4.5, pres: 1009, vis: 7 },
+  { city_name: "Montreal", country_code: "CA", temp: 17, weather: { description: "Fog", icon: "a05d" }, humidity: 90, wind_spd: 2.7, pres: 1017, vis: 5 },
+  { city_name: "Dallas", country_code: "US", temp: 28, weather: { description: "Sunny", icon: "c01d" }, humidity: 60, wind_spd: 3.6, pres: 1010, vis: 10 },
+  { city_name: "Miami", country_code: "US", temp: 31, weather: { description: "Clear sky", icon: "c01d" }, humidity: 75, wind_spd: 3.9, pres: 1012, vis: 10 },
+  { city_name: "San Francisco", country_code: "US", temp: 18, weather: { description: "Fog", icon: "a05d" }, humidity: 85, wind_spd: 2.8, pres: 1016, vis: 6 },
+  { city_name: "Philadelphia", country_code: "US", temp: 23, weather: { description: "Rain", icon: "r01d" }, humidity: 80, wind_spd: 4.2, pres: 1013, vis: 8 },
+  { city_name: "Atlanta", country_code: "US", temp: 27, weather: { description: "Thunderstorm", icon: "t04d" }, humidity: 82, wind_spd: 4.1, pres: 1011, vis: 7 },
+  { city_name: "Vancouver", country_code: "CA", temp: 16, weather: { description: "Cloudy", icon: "c02d" }, humidity: 78, wind_spd: 3.0, pres: 1018, vis: 10 },
+
+  // South America
+  { city_name: "São Paulo", country_code: "BR", temp: 26, weather: { description: "Partly cloudy", icon: "c02d" }, humidity: 70, wind_spd: 3.5, pres: 1012, vis: 10 },
+  { city_name: "Buenos Aires", country_code: "AR", temp: 22, weather: { description: "Rain", icon: "r01d" }, humidity: 80, wind_spd: 4.0, pres: 1013, vis: 8 },
+  { city_name: "Rio de Janeiro", country_code: "BR", temp: 29, weather: { description: "Clear sky", icon: "c01d" }, humidity: 75, wind_spd: 3.8, pres: 1011, vis: 10 },
+  { city_name: "Lima", country_code: "PE", temp: 19, weather: { description: "Fog", icon: "a05d" }, humidity: 90, wind_spd: 2.5, pres: 1017, vis: 5 },
+  { city_name: "Bogotá", country_code: "CO", temp: 17, weather: { description: "Cloudy", icon: "c02d" }, humidity: 80, wind_spd: 3.1, pres: 1018, vis: 10 },
+  { city_name: "Santiago", country_code: "CL", temp: 20, weather: { description: "Sunny", icon: "c01d" }, humidity: 60, wind_spd: 2.9, pres: 1015, vis: 10 },
+  { city_name: "Caracas", country_code: "VE", temp: 28, weather: { description: "Thunderstorm", icon: "t04d" }, humidity: 85, wind_spd: 4.3, pres: 1009, vis: 7 },
+  { city_name: "Belo Horizonte", country_code: "BR", temp: 25, weather: { description: "Rain", icon: "r01d" }, humidity: 80, wind_spd: 3.7, pres: 1012, vis: 8 },
+  { city_name: "Porto Alegre", country_code: "BR", temp: 23, weather: { description: "Showers", icon: "r02d" }, humidity: 78, wind_spd: 3.2, pres: 1014, vis: 9 },
+  { city_name: "Montevideo", country_code: "UY", temp: 18, weather: { description: "Cloudy", icon: "c02d" }, humidity: 75, wind_spd: 2.8, pres: 1016, vis: 10 },
+  { city_name: "Quito", country_code: "EC", temp: 16, weather: { description: "Fog", icon: "a05d" }, humidity: 90, wind_spd: 2.1, pres: 1019, vis: 4 },
+  { city_name: "Guayaquil", country_code: "EC", temp: 27, weather: { description: "Clear sky", icon: "c01d" }, humidity: 80, wind_spd: 3.4, pres: 1012, vis: 10 },
+  { city_name: "Medellín", country_code: "CO", temp: 21, weather: { description: "Rain", icon: "r01d" }, humidity: 85, wind_spd: 3.9, pres: 1013, vis: 8 },
+
+  // Oceania
+  { city_name: "Sydney", country_code: "AU", temp: 23, weather: { description: "Clear sky", icon: "c01d" }, humidity: 65, wind_spd: 3.6, pres: 1015, vis: 10 },
+  { city_name: "Melbourne", country_code: "AU", temp: 19, weather: { description: "Cloudy", icon: "c02d" }, humidity: 70, wind_spd: 3.1, pres: 1017, vis: 10 },
+  { city_name: "Auckland", country_code: "NZ", temp: 18, weather: { description: "Rain", icon: "r01d" }, humidity: 80, wind_spd: 4.0, pres: 1016, vis: 8 },
+  { city_name: "Brisbane", country_code: "AU", temp: 25, weather: { description: "Sunny", icon: "c01d" }, humidity: 60, wind_spd: 2.7, pres: 1014, vis: 10 },
+  { city_name: "Perth", country_code: "AU", temp: 22, weather: { description: "Clear sky", icon: "c01d" }, humidity: 55, wind_spd: 3.3, pres: 1016, vis: 10 },
+  { city_name: "Wellington", country_code: "NZ", temp: 17, weather: { description: "Fog", icon: "a05d" }, humidity: 85, wind_spd: 2.5, pres: 1018, vis: 6 },
+  { city_name: "Adelaide", country_code: "AU", temp: 20, weather: { description: "Partly cloudy", icon: "c02d" }, humidity: 65, wind_spd: 3.0, pres: 1017, vis: 10 },
+  { city_name: "Canberra", country_code: "AU", temp: 16, weather: { description: "Rain", icon: "r01d" }, humidity: 80, wind_spd: 3.8, pres: 1019, vis: 8 },
+  { city_name: "Christchurch", country_code: "NZ", temp: 15, weather: { description: "Cloudy", icon: "c02d" }, humidity: 75, wind_spd: 2.9, pres: 1018, vis: 10 },
+  { city_name: "Gold Coast", country_code: "AU", temp: 24, weather: { description: "Clear sky", icon: "c01d" }, humidity: 70, wind_spd: 3.5, pres: 1015, vis: 10 },
+  { city_name: "Hobart", country_code: "AU", temp: 13, weather: { description: "Fog", icon: "a05d" }, humidity: 90, wind_spd: 2.2, pres: 1020, vis: 5 },
+];
+
+export default MOCK_WEATHER_DATA; 

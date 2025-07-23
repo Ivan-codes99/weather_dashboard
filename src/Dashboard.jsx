@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import './App.css';
 import { Link } from 'react-router-dom';
 import TOP_CITIES from './topCities';
+import MOCK_WEATHER_DATA from './mockWeatherData'; // ✅ import your mock data
 import {
   BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, PieChart, Pie, Cell, Legend
 } from 'recharts';
@@ -17,32 +18,29 @@ function Dashboard({ onCitySelect }) {
   const [sliderMax, setSliderMax] = useState(null);
 
   useEffect(() => {
-    const fetchWeather = async () => {
-      setLoading(true);
-      setError(null);
-      try {
-        const apiKey = import.meta.env.VITE_WEATHERBIT_API_KEY;
-        const responses = await Promise.all(
-          TOP_CITIES.map(cityObj =>
-            fetch(`https://api.weatherbit.io/v2.0/current?city=${encodeURIComponent(cityObj.name)}&country=${cityObj.country}&key=${apiKey}`)
-          )
-        );
-        const data = await Promise.all(responses.map(res => res.json()));
-        const allData = data.map(d => d.data && d.data[0] ? d.data[0] : null).filter(Boolean);
-        setWeatherData(allData);
-        if (allData.length > 0) {
-          const temps = allData.map(item => item.temp);
+    try {
+      // Simulate async loading (optional)
+      const loadData = async () => {
+        setLoading(true);
+        const data = MOCK_WEATHER_DATA;
+        setWeatherData(data);
+
+        if (data.length > 0) {
+          const temps = data.map(item => item.temp);
           setSliderMin(Math.floor(Math.min(...temps)));
           setSliderMax(Math.ceil(Math.max(...temps)));
         }
-      } catch (err) {
-        setError('Failed to fetch weather data.');
-      } finally {
+
         setLoading(false);
-      }
-    };
-    fetchWeather();
+      };
+
+      loadData();
+    } catch (err) {
+      setError("Failed to load mock weather data.");
+      setLoading(false);
+    }
   }, []);
+
 
   const filteredData = weatherData.filter(item => {
     const matchesSearch = item.city_name.toLowerCase().includes(search.toLowerCase());
