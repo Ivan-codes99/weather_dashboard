@@ -2,6 +2,9 @@ import { useState, useEffect } from 'react';
 import './App.css';
 import { Link } from 'react-router-dom';
 import TOP_CITIES from './topCities';
+import {
+  BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, PieChart, Pie, Cell, Legend
+} from 'recharts';
 
 function Dashboard({ onCitySelect }) {
   const [weatherData, setWeatherData] = useState([]);
@@ -60,6 +63,36 @@ function Dashboard({ onCitySelect }) {
   const minTempDisplay = temps.length ? Math.min(...temps).toFixed(1) : '-';
   const maxTempDisplay = temps.length ? Math.max(...temps).toFixed(1) : '-';
 
+  // --- Chart Data Preparation ---
+  // 1. Average temperature by continent
+  const continentTemps = {};
+  filteredData.forEach(item => {
+    const cityObj = TOP_CITIES.find(c => c.name === item.city_name && c.country === item.country_code);
+    if (!cityObj) return;
+    const cont = cityObj.continent;
+    if (!continentTemps[cont]) continentTemps[cont] = [];
+    continentTemps[cont].push(item.temp);
+  });
+  const avgTempByContinent = Object.entries(continentTemps).map(([continent, temps]) => ({
+    continent,
+    avgTemp: (temps.reduce((a, b) => a + b, 0) / temps.length).toFixed(1)
+  }));
+
+  // 2. Weather condition distribution
+  const conditionCounts = {};
+  filteredData.forEach(item => {
+    const cond = item.weather.description;
+    conditionCounts[cond] = (conditionCounts[cond] || 0) + 1;
+  });
+  const conditionData = Object.entries(conditionCounts).map(([condition, count]) => ({
+    name: condition,
+    value: count
+  }));
+
+  const pieColors = [
+    '#8884d8', '#82ca9d', '#ffc658', '#ff8042', '#8dd1e1', '#a4de6c', '#d0ed57', '#d8854f', '#888888', '#b8860b', '#4682b4', '#e06666'
+  ];
+
   return (
     <div className="App">
       <h1>Weather Dashboard</h1>
@@ -115,43 +148,87 @@ function Dashboard({ onCitySelect }) {
         <p>Min Temp: {minTempDisplay}°C</p>
         <p>Max Temp: {maxTempDisplay}°C</p>
       </div>
-      {loading ? (
-        <p>Loading weather data...</p>
-      ) : error ? (
-        <p style={{ color: 'red' }}>{error}</p>
-      ) : (
-        <table className="dashboard-table">
-          <thead>
-            <tr>
-              <th>City</th>
-              <th>Temperature (°C)</th>
-              <th>Condition</th>
-              <th>Icon</th>
-            </tr>
-          </thead>
-          <tbody>
-            {filteredData.map(item => (
-              <tr key={item.city_name}>
-                <td>
-                  <Link to={`/details/${encodeURIComponent(item.city_name)}`}>
-                    {item.city_name}
-                  </Link>
-                </td>
-                <td>{item.temp}</td>
-                <td>{item.weather.description}</td>
-                <td>
-                  <img
-                    src={`https://www.weatherbit.io/static/img/icons/${item.weather.icon}.png`}
-                    alt={item.weather.description}
-                    width={32}
-                    height={32}
-                  />
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      )}
+      <div style={{ display: 'flex', alignItems: 'flex-start', gap: '2rem', marginTop: '2rem' }}>
+        <div style={{ flex: 2 }}>
+          {loading ? (
+            <p>Loading weather data...</p>
+          ) : error ? (
+            <p style={{ color: 'red' }}>{error}</p>
+          ) : (
+            <table className="dashboard-table">
+              <thead>
+                <tr>
+                  <th>City</th>
+                  <th>Temperature (°C)</th>
+                  <th>Condition</th>
+                  <th>Icon</th>
+                </tr>
+              </thead>
+              <tbody>
+                {filteredData.map(item => (
+                  <tr key={item.city_name}>
+                    <td>
+                      <Link to={`/details/${encodeURIComponent(item.city_name)}`}>
+                        {item.city_name}
+                      </Link>
+                    </td>
+                    <td>{item.temp}</td>
+                    <td>{item.weather.description}</td>
+                    <td>
+                      <img
+                        src={`https://www.weatherbit.io/static/img/icons/${item.weather.icon}.png`}
+                        alt={item.weather.description}
+                        width={32}
+                        height={32}
+                      />
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          )}
+        </div>
+        <div style={{ flex: 1, minWidth: 320, display: 'flex', flexDirection: 'column', gap: '2rem' }}>
+          <div style={{ background: '#23272f', borderRadius: 12, padding: 16, color: '#fff' }}>
+            <h3 style={{ color: '#fff', marginBottom: 8 }}>Avg Temp by Continent</h3>
+            <ResponsiveContainer width="100%" height={200}>
+              <BarChart data={avgTempByContinent}>
+                <XAxis dataKey="continent" stroke="#fff" tick={{ fill: '#fff' }} />
+                <YAxis stroke="#fff" tick={{ fill: '#fff' }} />
+                <Tooltip contentStyle={{ background: '#23272f', color: '#fff', border: 'none' }} />
+                <Bar dataKey="avgTemp" fill="#40a9ff" />
+              </BarChart>
+            </ResponsiveContainer>
+          </div>
+          <div style={{ background: '#23272f', borderRadius: 12, padding: 16, color: '#fff' }}>
+            <h3 style={{ color: '#fff', marginBottom: 8 }}>Weather Condition Distribution</h3>
+            <ResponsiveContainer width="100%" height={240}>
+              <PieChart>
+                <Pie
+                  data={conditionData}
+                  dataKey="value"
+                  nameKey="name"
+                  cx="50%"
+                  cy="45%"
+                  outerRadius={70}
+                  fill="#8884d8"
+                  label={{ fill: '#fff' }}
+                >
+                  {conditionData.map((entry, idx) => (
+                    <Cell key={`cell-${idx}`} fill={pieColors[idx % pieColors.length]} />
+                  ))}
+                </Pie>
+                <Legend iconType="circle" layout="horizontal" verticalAlign="bottom" align="center" wrapperStyle={{ color: '#fff', marginTop: 24 }} />
+                <Tooltip
+                  contentStyle={{ background: '#23272f', color: '#fff', border: 'none' }}
+                  itemStyle={{ color: '#fff' }}
+                  labelStyle={{ color: '#fff' }}
+                />
+              </PieChart>
+            </ResponsiveContainer>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
