@@ -165,3 +165,32 @@ body, #root, .App {
   box-shadow: 0 2px 12px rgba(0,0,0,0.10);
   margin-top: 90px;
 }
+
+.detail-view {
+  background: #181c20;
+  color: #fff;
+  padding: 2rem;
+  border-radius: 12px;
+  max-width: 400px;
+  margin: 2rem auto;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.16);
+}
+
+.detail-view a {
+  color: #40a9ff;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.detail-view a:hover {
+  text-decoration: underline;
+}
+
+.detail-view h2 {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.detail-view p {
+  margin: 0.5rem 0;
+}
