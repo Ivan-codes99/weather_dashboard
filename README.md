@@ -4,7 +4,7 @@ Submitted by: **Ivan Figueroa**
 
 This web app: **A web app that allows to view weather information on top 50 cities, it includes at least 5 cities from each continent. The user can also search for a specific or filter cities based on weather, continent, and min and max temperatures**
 
-Time spent: **3** hours spent in total
+Time spent: **6** hours spent in total
 
 ## Required Features
 
